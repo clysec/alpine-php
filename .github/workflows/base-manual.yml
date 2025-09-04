@@ -3,14 +3,14 @@ on:
 
 jobs:
   build-base:
-    uses: ./.github/templates/base.yml
+    uses: ./.github/templates/base.yml@${{ github.sha }}
     with:
       php_version: '8.2'
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   build-base-devcontainer:
-    uses: ./.github/templates/base.yml
+    uses: ./.github/templates/base.yml@${{ github.sha }}
     with:
       php_version: '8.2'
       variant: 'devcontainer'
