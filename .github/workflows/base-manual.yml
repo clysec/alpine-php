@@ -3,14 +3,14 @@ on:
 
 jobs:
   build-base:
-    uses: clysec/alpine-php/.github/templates/base.yml@main
+    uses: clysec/alpine-php/.github/workflows/base.yml@main
     with:
       php_version: '8.2'
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   build-base-devcontainer:
-    uses: clysec/alpine-php/.github/templates/base.yml@main
+    uses: clysec/alpine-php/.github/workflows/base.yml@main
     with:
       php_version: '8.2'
       variant: 'devcontainer'

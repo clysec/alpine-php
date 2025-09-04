@@ -70,6 +70,6 @@ jobs:
           context: ./base/php/${{ inputs.php_version }}/alpine${{ inputs.alpine_version }}/cli
           file: ./base/php/${{ inputs.php_version }}/alpine${{ inputs.alpine_version }}/cli/Dockerfile
           push: true
-          platform: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm64
           tags: |
             ghcr.io/clysec/alpine-php:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}
