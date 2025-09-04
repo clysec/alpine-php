@@ -17,7 +17,7 @@ on:
         default: ''
     
     secrets:
-      GITHUB_TOKEN:
+      X_GITHUB_TOKEN:
         description: 'GitHub token'
         required: true
 
@@ -43,7 +43,7 @@ jobs:
         with:
           registry: ghcr.io
           username: clysec
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.X_GITHUB_TOKEN }}
 
       - name: Get PHP commit version
         id: php_commit_sha

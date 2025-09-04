@@ -7,7 +7,7 @@ jobs:
     with:
       php_version: '8.2'
     secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      X_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   build-base-devcontainer:
     uses: clysec/alpine-php/.github/workflows/base.yml@main
@@ -15,5 +15,5 @@ jobs:
       php_version: '8.2'
       variant: 'devcontainer'
     secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      X_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
