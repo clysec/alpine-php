@@ -1,0 +1,19 @@
+on:
+  push:
+
+jobs:
+  build-base:
+    uses: ./.github/templates/base.yml
+    with:
+      php_version: '8.2'
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
+  build-base-devcontainer:
+    uses: ./.github/templates/base.yml
+    with:
+      php_version: '8.2'
+      variant: 'devcontainer'
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  

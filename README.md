@@ -1,2 +1,2 @@
-# alpine-unit
-Compact Nginx Unit images based on Alpine
+# Alpine PHP Images
+Alpine PHP images for Nginx Unit

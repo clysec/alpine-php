@@ -1,0 +1,75 @@
+on:
+  workflow_call:
+    inputs:
+      php_version:
+        description: 'The PHP version to build for'
+        required: true
+        type: string
+      
+      alpine_version:
+        description: 'The Alpine version to build for'
+        type: string
+        default: '3.22'
+      
+      variant:
+        description: 'The variant to build'
+        type: string
+        default: ''
+    
+    secrets:
+      GITHUB_TOKEN:
+        description: 'GitHub token'
+        required: true
+
+jobs:
+  build-base:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository content
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Login to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: clysec
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get PHP commit version
+        id: php_commit_sha
+        run: |
+          cd base/php
+          echo "PHP_COMMIT_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      
+      - name: Cache layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ steps.php_commit_sha.outputs.PHP_COMMIT_SHORT }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      
+      - name: Prepare PHP Dockerfiles
+        run: |
+          cd base
+          python3 generate.py ${{ inputs.variant }}
+      
+      - name: Build image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./base/php/${{ inputs.php_version }}/alpine${{ inputs.alpine_version }}/cli
+          file: ./base/php/${{ inputs.php_version }}/alpine${{ inputs.alpine_version }}/cli/Dockerfile
+          push: true
+          platform: linux/amd64,linux/arm64
+          tags: |
+            ghcr.io/clysec/alpine-php:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}
