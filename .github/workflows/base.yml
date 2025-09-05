@@ -63,13 +63,24 @@ jobs:
         run: |
           cd base
           python3 generate.py ${{ inputs.variant }}
-      
-      - name: Build image
-        uses: docker/build-push-action@v4
+
+      - uses: depot/setup-action@v1
+      - uses: depot/build-push-action@v1
         with:
+          project: pb9l5sd9m3
           context: ./base/php/${{ inputs.php_version }}/alpine${{ inputs.alpine_version }}/cli
           file: ./base/php/${{ inputs.php_version }}/alpine${{ inputs.alpine_version }}/cli/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/clysec/alpine-php:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}
+            ghcr.io/clysec/alpine-php:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ inputs.variant != '' && '-' }}${{ inputs.variant }}
+      
+      # - name: Build image
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #     context: ./base/php/${{ inputs.php_version }}/alpine${{ inputs.alpine_version }}/cli
+      #     file: ./base/php/${{ inputs.php_version }}/alpine${{ inputs.alpine_version }}/cli/Dockerfile
+      #     push: true
+      #     platforms: linux/amd64,linux/arm64
+      #     tags: |
+      #       ghcr.io/clysec/alpine-php:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ inputs.variant != '' && '-' }}${{ inputs.variant }}
