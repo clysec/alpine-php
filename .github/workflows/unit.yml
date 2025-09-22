@@ -21,6 +21,13 @@ on:
         description: 'GitHub token'
         required: true
 
+      DOCKERHUB_USERNAME:
+        description: 'Docker Hub username'
+        required: true
+      DOCKERHUB_TOKEN:
+        description: 'Docker Hub token'
+        required: true
+
 jobs:
   build-base:
     runs-on: ubuntu-latest

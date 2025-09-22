@@ -20,7 +20,7 @@ jobs:
       contents: read
       packages: write
       id-token: write
-    uses: clysec/alpine-php/.github/workflows/base.yml@main
+    uses: clysec/alpine-php/.github/workflows/unit.yml@main
     with:
       php_version: ${{ github.event.inputs.php_version }}
       alpine_version: ${{ github.event.inputs.alpine_version }}
