@@ -29,3 +29,5 @@ jobs:
       X_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       X_DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME }}
       X_DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_PASSWORD }}
+      X_CYCR_USER: ${{ secrets.CYCR_ALPINE_USER }}
+      X_CYCR_KEY: ${{ secrets.CYCR_ALPINE_KEY }}

@@ -29,6 +29,14 @@ on:
         description: 'Docker Hub token'
         required: false
 
+      X_CYCR_USER:
+        description: 'CYCR user'
+        required: false
+
+      X_CYCR_KEY:
+        description: 'CYCR key'
+        required: false
+
 jobs:
   build-base:
     runs-on: ubuntu-latest
@@ -56,6 +64,13 @@ jobs:
         with:
           username: ${{ secrets.X_DOCKERHUB_USER }}
           password: ${{ secrets.X_DOCKERHUB_TOKEN }}
+    
+      - name: Login to cycr.io
+        uses: docker/login-action@v2
+        with:
+          registry: cycr.io/alpine
+          username: ${{ secrets.X_CYCR_USER }}
+          password: ${{ secrets.X_CYCR_KEY }}
 
       - name: Get PHP commit version
         id: php_commit_sha
@@ -72,5 +87,9 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/clysec/alpine-php:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ (inputs.variant != '' && '-') || '' }}${{ inputs.variant }}
-            ${{ (inputs.php_version == '8.4' && 'ghcr.io/clysec/alpine-php:latest') || '' }}${{ (inputs.variant != '' && inputs.php_version == '8.4' && '-') || '' }}${{ (inputs.php_version == '8.4' && inputs.variant) || '' }}
+            cycr.io/alpine/unit:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ (inputs.variant != '' && '-') || '' }}${{ inputs.variant }}
+            ${{ (inputs.php_version == '8.4' && 'cycr.io/alpine/unit:latest') || '' }}${{ (inputs.variant != '' && inputs.php_version == '8.4' && '-') || '' }}${{ (inputs.php_version == '8.4' && inputs.variant) || '' }}  
+            ghcr.io/clysec/alpine-unit:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ (inputs.variant != '' && '-') || '' }}${{ inputs.variant }}
+            ${{ (inputs.php_version == '8.4' && 'ghcr.io/clysec/alpine-unit:latest') || '' }}${{ (inputs.variant != '' && inputs.php_version == '8.4' && '-') || '' }}${{ (inputs.php_version == '8.4' && inputs.variant) || '' }}  
+            docker.io/clysec/alpine-unit:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ (inputs.variant != '' && '-') || '' }}${{ inputs.variant }}
+            ${{ (inputs.php_version == '8.4' && 'docker.io/clysec/alpine-unit:latest') || '' }}${{ (inputs.variant != '' && inputs.php_version == '8.4' && '-') || '' }}${{ (inputs.php_version == '8.4' && inputs.variant) || '' }}  
