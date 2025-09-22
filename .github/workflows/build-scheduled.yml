@@ -1,5 +1,11 @@
 on:
   push:
+    branches:
+      - disabled
+  # schedule:
+  #   - cron: '10 3 * * 0'
+      
+      
 
 jobs:
   build-base:
@@ -9,20 +15,21 @@ jobs:
       id-token: write
     uses: clysec/alpine-php/.github/workflows/base.yml@main
     with:
-      php_version: '8.2'
+      php_version: "8.4"
+      alpine_version: "3.22"
+      variant: ""
     secrets:
       X_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
-  build-base-devcontainer:
-    needs: build-base
+
+  build-devcontainer:
     permissions:
       contents: read
       packages: write
       id-token: write
     uses: clysec/alpine-php/.github/workflows/base.yml@main
     with:
-      php_version: '8.2'
-      variant: 'devcontainer'
+      php_version: "8.4"
+      alpine_version: "3.22"
+      variant: "devcontainer"
     secrets:
       X_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  

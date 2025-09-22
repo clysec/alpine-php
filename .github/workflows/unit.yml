@@ -54,22 +54,17 @@ jobs:
         run: |
           cd base/php
           echo "PHP_COMMIT_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-      
-      - name: Prepare PHP Dockerfiles
-        run: |
-          cd base
-          python3 generate.py ${{ inputs.variant }}
 
       - uses: depot/setup-action@v1
       - uses: depot/build-push-action@v1
         with:
           project: pb9l5sd9m3
-          context: ./base/php/${{ inputs.php_version }}/alpine${{ inputs.alpine_version }}/cli
-          file: ./base/php/${{ inputs.php_version }}/alpine${{ inputs.alpine_version }}/cli/Dockerfile
+          context: ./unit
+          file: ./unit/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/clysec/alpine-php:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ inputs.variant != '' && '-' }}${{ inputs.variant }}
-            docker.io/clysec/alpine-php:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ inputs.variant != '' && '-' }}${{ inputs.variant }}
-            ${{ inputs.php_version == '8.4' && 'ghcr.io/clysec/alpine-php:latest' }}${{ inputs.variant != '' && inputs.php_version == '8.4' && '-' }}${{ inputs.php_version == '8.4' && inputs.variant }}
-            ${{ inputs.php_version == '8.4' && 'docker.io/clysec/alpine-php:latest' }}${{ inputs.variant != '' && inputs.php_version == '8.4' && '-' }}${{ inputs.php_version == '8.4' && inputs.variant }}
+            ghcr.io/clysec/alpine-unit:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ inputs.variant != '' && '-' }}${{ inputs.variant }}
+            docker.io/clysec/alpine-unit:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ inputs.variant != '' && '-' }}${{ inputs.variant }}
+            ${{ inputs.php_version == '8.4' && 'ghcr.io/clysec/alpine-unit:latest' }}${{ inputs.variant != '' && inputs.php_version == '8.4' && '-' }}${{ inputs.php_version == '8.4' && inputs.variant }}
+            ${{ inputs.php_version == '8.4' && 'docker.io/clysec/alpine-unit:latest' }}${{ inputs.variant != '' && inputs.php_version == '8.4' && '-' }}${{ inputs.php_version == '8.4' && inputs.variant }}

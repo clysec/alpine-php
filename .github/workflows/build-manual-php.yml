@@ -1,0 +1,29 @@
+on:
+  workflow_dispatch:
+    inputs:
+      php_version:
+        description: 'PHP Version'
+        required: false
+        default: '8.4'
+      alpine_version:
+        description: 'Alpine Version'
+        required: false
+        default: '3.22'
+      variant:
+        description: 'Variant (leave empty for default)'
+        required: false
+        default: ''
+
+jobs:
+  build-base:
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    uses: clysec/alpine-php/.github/workflows/base.yml@main
+    with:
+      php_version: ${{ github.event.inputs.php_version }}
+      alpine_version: ${{ github.event.inputs.alpine_version }}
+      variant: ${{ github.event.inputs.variant }}
+    secrets:
+      X_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
