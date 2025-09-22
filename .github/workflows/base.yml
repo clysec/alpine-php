@@ -77,7 +77,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           # temp disable cache for testings
-          no-cache: true
+          # no-cache: true
           tags: |
             ghcr.io/clysec/alpine-php:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ (inputs.variant != '' && '-') || '' }}${{ inputs.variant }}
             ${{ (inputs.php_version == '8.4' && 'ghcr.io/clysec/alpine-php:latest') || '' }}${{ (inputs.variant != '' && inputs.php_version == '8.4' && '-') || '' }}${{ (inputs.php_version == '8.4' && inputs.variant) || '' }}  
