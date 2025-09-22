@@ -20,6 +20,8 @@ jobs:
       variant: ""
     secrets:
       X_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      X_DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+      X_DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   build-devcontainer:
     permissions:
@@ -33,3 +35,5 @@ jobs:
       variant: "devcontainer"
     secrets:
       X_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      X_DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+      X_DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_PASSWORD }}
