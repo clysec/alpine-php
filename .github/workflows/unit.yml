@@ -90,9 +90,10 @@ jobs:
             PHP_VERSION=${{ inputs.php_version }}
             ALPINE_VERSION=${{ inputs.alpine_version }}
           tags: |
-            cycr.io/alpine/unit:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ (inputs.variant != '' && '-') || '' }}${{ inputs.variant }}
-            ${{ (inputs.php_version == '8.4' && 'cycr.io/alpine/unit:latest') || '' }}${{ (inputs.variant != '' && inputs.php_version == '8.4' && '-') || '' }}${{ (inputs.php_version == '8.4' && inputs.variant) || '' }}  
             ghcr.io/clysec/alpine-unit:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ (inputs.variant != '' && '-') || '' }}${{ inputs.variant }}
             ${{ (inputs.php_version == '8.4' && 'ghcr.io/clysec/alpine-unit:latest') || '' }}${{ (inputs.variant != '' && inputs.php_version == '8.4' && '-') || '' }}${{ (inputs.php_version == '8.4' && inputs.variant) || '' }}  
             docker.io/clysec/alpine-unit:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ (inputs.variant != '' && '-') || '' }}${{ inputs.variant }}
             ${{ (inputs.php_version == '8.4' && 'docker.io/clysec/alpine-unit:latest') || '' }}${{ (inputs.variant != '' && inputs.php_version == '8.4' && '-') || '' }}${{ (inputs.php_version == '8.4' && inputs.variant) || '' }}  
+
+    # cycr.io/alpine/unit:${{ inputs.php_version }}-alpine${{ inputs.alpine_version }}${{ (inputs.variant != '' && '-') || '' }}${{ inputs.variant }}
+    # ${{ (inputs.php_version == '8.4' && 'cycr.io/alpine/unit:latest') || '' }}${{ (inputs.variant != '' && inputs.php_version == '8.4' && '-') || '' }}${{ (inputs.php_version == '8.4' && inputs.variant) || '' }}  
