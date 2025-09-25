@@ -121,6 +121,7 @@ RUN ldconfig / \
     && docker-php-source extract \
     && docker-php-ext-install -j$(nproc) soap opcache \
     && docker-php-source delete \
+    && chmod +x "/usr/local/bin/docker-entrypoint.sh" \
     && rm -f /requirements.apk \
     && ln -sf /dev/stdout /var/log/unit.log \
     && mkdir -p /var/lib/unit /app/web && chown -R unit:unit /var/run /run /var/lib/unit
